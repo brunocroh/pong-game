@@ -72,16 +72,18 @@ function Ball:checkBoundaries()
     self.xVel = self.speed
   end
 
-  if self.x < 0 or self.x + self.width > love.graphics.getWidth() then
-    Ball:center()
-    self.xVel = -self.xVel
+  if self.x < 0 then
+    Ball:resetPosition(1)
+  elseif self.x + self.width > love.graphics.getWidth() then
+    Ball:resetPosition(-1)
   end
 end
 
-function Ball:center()
+function Ball:resetPosition(modifier)
   self.x = love.graphics.getWidth( ) / 2 - self.width / 2
   self.y = love.graphics.getHeight( ) / 2 - self.height / 2
   self.yVel = 0
+  self.xVel = self.xVel * modifier
 end
 
 function Ball:draw()
