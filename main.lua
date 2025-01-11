@@ -1,7 +1,7 @@
-require('player')
-require('ball')
-require('ai')
-require('background')
+require 'player'
+require 'ball'
+require 'ai'
+require 'background'
 
 local font = love.graphics.newFont(30)
 
