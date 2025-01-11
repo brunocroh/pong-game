@@ -4,7 +4,9 @@ Ball = {}
 function Ball:load()
   self.img = love.graphics.newImage('assets/ball.png')
   self.soundHit = love.audio.newSource('assets/hit.mp3', 'stream')
+  self.soundScore = love.audio.newSource('assets/score.mp3', 'stream')
   self.soundHit:setVolume(0.1)
+  self.soundScore:setVolume(0.2)
 
   self.width = 20
   self.height = self.width
@@ -73,6 +75,7 @@ function Ball:checkBoundaries()
 end
 
 function Ball:resetPosition()
+  self.soundScore:play()
   self.x = love.graphics.getWidth( ) / 2 - self.width / 2
   self.y = love.graphics.getHeight( ) / 2 - self.height / 2
   self.yVel = 0
