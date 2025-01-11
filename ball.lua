@@ -57,25 +57,11 @@ function Ball:checkBoundaries()
   end
 
   if self.x < 0 then
-    self.x = love.graphics.getWidth( ) / 2 - self.width / 2
-    self.y = love.graphics.getHeight( ) / 2 - self.height / 2
-
-    self.yVel = 0
-    self.xVel = self.speed
-  end
-
-  if self.x < 0 then
-    self.x = love.graphics.getWidth( ) / 2 - self.width / 2
-    self.y = love.graphics.getHeight( ) / 2 - self.height / 2
-
-    self.yVel = 0
-    self.xVel = self.speed
-  end
-
-  if self.x < 0 then
     Ball:resetPosition(1)
+    Score.ai = Score.ai + 1
   elseif self.x + self.width > love.graphics.getWidth() then
     Ball:resetPosition(-1)
+    Score.player = Score.player + 1
   end
 end
 

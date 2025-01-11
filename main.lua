@@ -3,12 +3,22 @@ require('ball')
 require('ai')
 require('background')
 
+local font = love.graphics.newFont(30)
+
+local function drawScore()
+  love.graphics.setFont(font)
+  love.graphics.print('Player: ' .. Score.player, 50, 50)
+  love.graphics.print('AI: ' ..Score.ai, love.graphics.getWidth() - 120, 50)
+end
 
 function love.load()
   Background:load()
   Player:load()
   Ball:load()
   AI:load()
+
+
+  Score = { player = 0, ai = 0}
 end
 
 function love.update(dt)
@@ -23,8 +33,9 @@ function love.draw()
   Player:draw()
   Ball:draw()
   AI:draw()
-end
 
+  drawScore()
+end
 
 function CheckCollision(a, b)
   if a.x + a.width > b.x
