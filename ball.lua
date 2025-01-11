@@ -3,6 +3,8 @@ Ball = {}
 
 function Ball:load()
   self.img = love.graphics.newImage('assets/ball.png')
+  self.soundHit = love.audio.newSource('assets/hit.mp3', 'stream')
+  self.soundHit:setVolume(0.1)
 
   self.width = 20
   self.height = self.width
@@ -30,6 +32,7 @@ end
 
 function Ball:collide()
   if CheckCollision(self, Player) then
+    self.soundHit:play()
     self.xVel = self.speed
     local middleBall = self.y + self.height / 2
     local middlePlayer = Player.y + Player.height / 2
@@ -38,6 +41,7 @@ function Ball:collide()
   end
 
   if CheckCollision(self, AI) then
+    self.soundHit:play()
     self.xVel = -self.speed
     local middleBall = self.y + self.height / 2
     local middleAI = AI.y + AI.height / 2
@@ -47,29 +51,32 @@ function Ball:collide()
 end
 
 
+
 function Ball:checkBoundaries()
   if self.y < 0 then
+    self.soundHit:play()
     self.y = 0
     self.yVel = -self.yVel
   elseif self.y + self.height > love.graphics.getHeight() then
+    self.soundHit:play()
     self.y = love.graphics.getHeight() - self.height
     self.yVel = -self.yVel
   end
 
   if self.x < 0 then
-    Ball:resetPosition(1)
+    Ball:resetPosition()
     Score.ai = Score.ai + 1
   elseif self.x + self.width > love.graphics.getWidth() then
-    Ball:resetPosition(-1)
+    Ball:resetPosition()
     Score.player = Score.player + 1
   end
 end
 
-function Ball:resetPosition(modifier)
+function Ball:resetPosition()
   self.x = love.graphics.getWidth( ) / 2 - self.width / 2
   self.y = love.graphics.getHeight( ) / 2 - self.height / 2
   self.yVel = 0
-  self.xVel = self.xVel * modifier
+  self.xVel = self.xVel * -1
 end
 
 function Ball:draw()
